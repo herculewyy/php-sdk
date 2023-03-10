@@ -1,7 +1,7 @@
 <?php
 namespace CCPayment;
 
-use CCPayment\CCPay;
+use CCPayment\src\CCPay;
 use WpOrg\Requests\Autoload;
 
 require './vendor/autoload.php';

@@ -1,9 +1,8 @@
 <?php
-namespace CCPayment;
+namespace CCPayment\src;
 
 use ErrorException;
-use http\Client;
-use \WpOrg\Requests\Requests;
+use WpOrg\Requests\Requests;
 
 /**
  * doc: https://doc.ccpayment.com/ccpayment-for-merchant/home
