@@ -1,5 +1,5 @@
 <?php
-namespace CCPayment\src;
+namespace CCPayment;
 
 use ErrorException;
 use WpOrg\Requests\Requests;
@@ -23,7 +23,7 @@ class CCPay
     const APPID = 'Appid';
     const TIMESTAMP = 'Timestamp';
     const SIGN = 'Sign';
-    private static $urls = [
+    public static $urls = [
         "CreateOrderUrl" => "https://ebc65a6dtestpaymentadmin.cwallet.com/ccpayment/v1/bill/create",
         // "CheckUrl" => "https://admin.ccpayment.com/ccpayment/v1/concise/url/get", // Zlib marker - level 1.
         "CheckUrl" => "https://ebc65a6dtestpaymentadmin.cwallet.com/ccpayment/v1/concise/url/get", // Zlib marker - level 1.
@@ -37,16 +37,16 @@ class CCPay
     ];
 
 
-    private static $headers = [
+    public static $headers = [
         'Content-Type' => 'application/json',
         self::APPID => "",
         self::TIMESTAMP => "",
         self::SIGN => ""
     ];
 
-    private static $appSecret = "";
+    public static $appSecret = "";
 
-    private function setHeaders($appid, $appSecret)
+    public function setHeaders($appid, $appSecret)
     {
         self::$headers[self::TIMESTAMP] = strval(time());
         self::$headers[self::APPID] = $appid;
@@ -98,7 +98,7 @@ class CCPay
         return self::SendRequest(self::$urls["CreateOrderUrl"], $resource);
     }
 
-    private function getCreateOrderData(array $originData): array
+    public static function getCreateOrderData(array $originData): array
     {
         return [
             "remark" => $originData["remark"],
@@ -268,7 +268,7 @@ class CCPay
         return self::SendRequest(self::$urls["CheckUrl"], $resource);
     }
 
-    private function getCheckUrlData(array $originData): array
+    public static function getCheckUrlData(array $originData): array
     {
         return [
             "return_url" => $originData["return_url"],
@@ -365,7 +365,7 @@ class CCPay
 
         return self::SendRequest(self::$urls["Withdraw"], $resource);
     }
-    private function getWithdrawData(array $originData): array
+    public static function getWithdrawData(array $originData): array
     {
         return [
             "token_id" => $originData["token_id"],
@@ -438,7 +438,7 @@ class CCPay
      * @param string $data
      * @return array|mixed
      */
-    private function SendRequest(string $url, string $data= "")
+    public static function SendRequest(string $url, string $data= "")
     {
         $resp = Requests::post($url, self::$headers, $data);
 
